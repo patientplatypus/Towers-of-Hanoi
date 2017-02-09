@@ -382,13 +382,13 @@ fn computercontrol(mut gametable: Vec<Vec<&str>>) -> Vec<Vec<&str>> {
 		possiblewhosturn = "computer".to_string();
 
 		let mut rng = rand::thread_rng();
-	    let mut between = Range::new(1, 7);
+	    let mut between = Range::new(1, 8);
 	    let mut pickslot = between.ind_sample(&mut rng);
 
 
 		loop{
 	    	rng = rand::thread_rng();
-	    	between = Range::new(1, 7);
+	    	between = Range::new(1, 8);
 	    	pickslot = between.ind_sample(&mut rng);
 
 	    	if possiblegametable[1][pickslot] == "."{
