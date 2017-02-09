@@ -381,10 +381,21 @@ fn computercontrol(mut gametable: Vec<Vec<&str>>) -> Vec<Vec<&str>> {
 		let mut possiblewhosturn = String::new();
 		possiblewhosturn = "computer".to_string();
 
+		let mut rng = rand::thread_rng();
+	    let mut between = Range::new(1, 7);
+	    let mut pickslot = between.ind_sample(&mut rng);
 
-	    let mut rng = rand::thread_rng();
-	    let between = Range::new(1, 7);
-	    let pickslot = between.ind_sample(&mut rng);
+
+		loop{
+	    	rng = rand::thread_rng();
+	    	between = Range::new(1, 7);
+	    	pickslot = between.ind_sample(&mut rng);
+
+	    	if possiblegametable[1][pickslot] == "."{
+	    		break;
+	    	}
+
+		}
 
 		if pickslot == 1 {
 
@@ -593,6 +604,29 @@ fn check4winner(gametable: &mut Vec<Vec<&str>>) -> String{
 
 			}
 	}
+
+	let mut tiecounter = 0;
+
+
+	'loopthroughrows: for x in 1..7{
+			'loopthroughcolumns: for y in 1..8{
+
+				let mut stringtotest = gametable[x][y].to_string();
+
+				if stringtotest != "."{
+					tiecounter += 1;
+				}
+			}
+	}
+
+	if tiecounter == 0{
+
+		returnwinner = "We ended in a tie!".to_string();
+
+	}
+
+
+
 
 
 	if returnwinner == ""{
@@ -871,7 +905,11 @@ fn main() {
 
 		   let mut winnerstring = check4winner(&mut gametable);
 
-		   
+		   if winnerstring == "We ended in a tie!"{
+
+		   		println!("We ended in a tie!");
+
+		   }
 
 		   if winnerstring != "no winners yet desu~"{
 
@@ -910,6 +948,13 @@ fn main() {
 
 
 		   let mut winnerstring = check4winner(&mut gametable);
+
+
+		   if winnerstring == "We ended in a tie!"{
+
+		   		println!("We ended in a tie!");
+
+		   }
 
 
 		   if winnerstring != "no winners yet desu~"{
